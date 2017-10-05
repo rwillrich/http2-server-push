@@ -1,0 +1,10 @@
+{
+  "/index.html": {
+    "dependencies": ["/app.js"]
+  },
+  "/main.js": {
+    "dependencies": ["/a.js", "/b.js"]
+  },
+  "/a.js": {},
+  "/b.js": {}
+}
