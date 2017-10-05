@@ -4,6 +4,10 @@ const path = require('path')
 
 const getFiles = require('./get-files')
 
+const {
+  HTTP2_HEADER_PATH
+} = http2.constants
+
 const key = fs.readFileSync(path.resolve(__dirname, '../ssl/key.pem'))
 const cert = fs.readFileSync(path.resolve(__dirname, '../ssl/cert.pem'))
 
@@ -16,13 +20,14 @@ function push (stream, path) {
     return
   }
 
-  stream.pushStream({ [htt2.constants.HTTP2_HEADER_PATH]: path }, (pushStream) => {
+  stream.pushStream({ [HTTP2_HEADER_PATH]: path }, (pushStream) => {
     pushStream.respondWithFD(file.fileDescriptor, file.headers)
   })
 }
 
 const handler = (req, res) => {
-  const reqPath = req.path === '/' ? '/index.html' : req.path
+  const path = req.headers[HTTP2_HEADER_PATH]
+  const reqPath = path === '/' ? '/index.html' : path
   const file = publicFiles.get(reqPath)
 
   if (!file) {
