@@ -37,10 +37,10 @@ const handler = (req, res) => {
   }
 
   // Push Stream
-  // if (reqPath === '/index.html') {
-  //   push(res.stream, '/bundle1.js')
-  //   push(res.stream, '/bundle2.js')
-  // }
+  if (reqPath === '/main.js') {
+    push(res.stream, '/a.js')
+    push(res.stream, '/b.js')
+  }
 
   res.stream.respondWithFD(file.fileDescriptor, file.headers)
 }
