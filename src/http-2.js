@@ -27,12 +27,16 @@ function push (stream, path) {
   })
 }
 
-function pushDependencies(stream, reqPath = '') {
+function pushDependencies(stream, reqPath = '', pushedDependencies = []) {
   const dependencies = dependenciesConfig[reqPath.slice(1)] || []
 
   dependencies.forEach(dependency => {
+    if (pushedDependencies.includes(dependency)) {
+      return
+    }
+    pushedDependencies.push(dependency)
     push(stream, `/${dependency}`)
-    pushDependencies(stream, `/${dependency}`)
+    pushDependencies(stream, `/${dependency}`, pushedDependencies)
   })
 }
 
