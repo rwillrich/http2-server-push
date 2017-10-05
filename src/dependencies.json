@@ -5,6 +5,13 @@
   "/main.js": {
     "dependencies": ["/a.js", "/b.js"]
   },
-  "/a.js": {},
-  "/b.js": {}
+  "/a.js": {
+    "dependencies": ["/c-a.js", "/c-b.js"]
+  },
+  "/b.js": {
+    "dependencies": ["/c-d-a.js", "/c-d-b.js"]
+  },
+  "/c-d-b.js": {
+    "dependencies": ["/c-d-c.js"]
+  }
 }

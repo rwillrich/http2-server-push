@@ -10,6 +10,8 @@ const {
 
 const key = fs.readFileSync(path.resolve(__dirname, '../ssl/key.pem'))
 const cert = fs.readFileSync(path.resolve(__dirname, '../ssl/cert.pem'))
+const dependenciesFile = fs.readFileSync(path.resolve(__dirname, './dependencies.json'))
+const dependenciesConfig = JSON.parse(dependenciesFile)
 
 const publicFiles = getFiles(path.resolve(__dirname, '../public/'))
 
@@ -25,6 +27,17 @@ function push (stream, path) {
   })
 }
 
+function pushDependencies(stream, reqPath) {
+  const dependencies = (dependenciesConfig[reqPath] || {}).dependencies
+
+  if (dependencies) {
+    dependencies.forEach(dependency => {
+      push(stream, dependency)
+      pushDependencies(stream, dependency)
+    })
+  }
+}
+
 const handler = (req, res) => {
   const path = req.headers[HTTP2_HEADER_PATH]
   const reqPath = path === '/' ? '/index.html' : path
@@ -36,11 +49,7 @@ const handler = (req, res) => {
     return
   }
 
-  // Push Stream
-  if (reqPath === '/main.js') {
-    push(res.stream, '/a.js')
-    push(res.stream, '/b.js')
-  }
+  pushDependencies(res.stream, reqPath)
 
   res.stream.respondWithFD(file.fileDescriptor, file.headers)
 }
