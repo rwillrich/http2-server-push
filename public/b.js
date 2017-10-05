@@ -1,6 +1,7 @@
-const container = document.getElementById("app-container")
-const content = document.createElement("span")
-content.style.color = "red"
-content.innerHTML = "My red text"
+const container = document.getElementById('app-container')
+const content = document.createElement('div')
+content.className = 'component'
+content.style['background-color'] = '#81a558'
+content.innerHTML = 'Component B'
 
-export default (name = 'World') => container.appendChild(content)
+export default () => container.appendChild(content)
