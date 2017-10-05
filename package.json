@@ -4,11 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node --expose-http2 ./src/http-2",
-    "watch": "nodemon",
-    "generate-dependencies": "madge --json ./public > ./src/dependencies.json",
-    "start-express": "node ./src/http-2-express",
-    "start-http": "node ./src/http"
+    "start": "nf start",
+    "generate-dependencies": "madge --json ./public > ./src/dependencies.json"
   },
   "engines": {
     "node": "^8.6.0",
@@ -20,7 +17,7 @@
     "spdy": "^3.4.7"
   },
   "devDependencies": {
-    "madge": "^2.2.0",
-    "nodemon": "^1.12.1"
+    "foreman": "^2.0.0",
+    "madge": "^2.2.0"
   }
 }

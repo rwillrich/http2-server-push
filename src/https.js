@@ -29,7 +29,7 @@ const handler = (req, res) => {
 
 const server = https.createServer({ cert, key }, handler)
 
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3002, () => {
   const { address, port } = server.address()
   console.log(`Server listening at ${address}:${port}`)
 })

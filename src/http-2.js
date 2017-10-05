@@ -57,7 +57,7 @@ const handler = (req, res) => {
 
 const server = http2.createSecureServer({ cert, key }, handler)
 
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3000, () => {
   const { address, port } = server.address()
   console.log(`Server listening at ${address}:${port}`)
 })
