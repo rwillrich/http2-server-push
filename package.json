@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node --expose-http2 ./src/http-2",
     "watch": "nodemon",
-    "start-http": "node ./src/http"
+    "start-http": "node ./src/http",
+    "generate-dependencies": "madge --json ./public > ./src/dependencies.json"
   },
   "engines": {
     "node": "^8.6.0",
@@ -16,6 +17,7 @@
     "mime": "^2.0.3"
   },
   "devDependencies": {
+    "madge": "^2.2.0",
     "nodemon": "^1.12.1"
   }
 }

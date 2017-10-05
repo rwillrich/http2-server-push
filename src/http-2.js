@@ -28,14 +28,12 @@ function push (stream, path) {
 }
 
 function pushDependencies(stream, reqPath) {
-  const dependencies = (dependenciesConfig[reqPath] || {}).dependencies
+  const dependencies = dependenciesConfig[reqPath] || []
 
-  if (dependencies) {
-    dependencies.forEach(dependency => {
-      push(stream, dependency)
-      pushDependencies(stream, dependency)
-    })
-  }
+  dependencies.forEach(dependency => {
+    push(stream, dependency)
+    pushDependencies(stream, dependency)
+  })
 }
 
 const handler = (req, res) => {
