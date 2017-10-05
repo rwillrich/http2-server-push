@@ -40,7 +40,7 @@ app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '/../public', file))
 })
 
-server.listen(process.env.PORT || 3003, () => {
+server.listen(3004, () => {
   const { address, port } = server.address()
-  console.log(`Server listening at ${address}:${port}`)
+  console.log(`HTTP/2 Express server listening at ${address}:${port}`)
 })

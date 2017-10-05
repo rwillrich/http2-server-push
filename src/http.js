@@ -1,10 +1,14 @@
 const fs = require('fs')
 const http = require('http')
+const https = require('https')
 const path = require('path')
 const url = require('url')
 
 const getFiles = require('./get-files')
 const dependenciesConfig = require('./dependencies.json')
+
+const key = fs.readFileSync(path.resolve(__dirname, '../ssl/key.pem'))
+const cert = fs.readFileSync(path.resolve(__dirname, '../ssl/cert.pem'))
 
 const publicDir = path.resolve(__dirname, '../public/')
 const publicFiles = getFiles(publicDir)
@@ -24,9 +28,16 @@ const handler = (req, res) => {
   fs.createReadStream(path.join(publicDir, reqPath)).pipe(res)
 }
 
-const server = http.createServer(handler)
+const httpServer = http.createServer(handler)
 
-server.listen(process.env.PORT || 3001, () => {
-  const { address, port } = server.address()
-  console.log(`Server listening at ${address}:${port}`)
+httpServer.listen(3000, () => {
+  const { address, port } = httpServer.address()
+  console.log(`HTTP server listening at ${address}:${port}`)
+})
+
+const httpsServer = https.createServer({ cert, key }, handler)
+
+httpsServer.listen(3001, () => {
+  const { address, port } = httpsServer.address()
+  console.log(`HTTPS server listening at ${address}:${port}`)
 })
