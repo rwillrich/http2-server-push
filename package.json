@@ -4,10 +4,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node --experimental-modules --expose-http2 ./src/server"
+    "start": "node --expose-http2 ./src/http-2"
   },
   "engines": {
     "node": "^8.6.0",
     "npm": "^5.3.0"
+  },
+  "dependencies": {
+    "mime": "^2.0.3"
   }
 }
