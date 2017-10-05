@@ -1,0 +1,13 @@
+{
+  "name": "http-server-push",
+  "description": "Exploration of HTTP/2 Server Push with ES modules",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node --experimental-modules --expose-http2 ./src/server"
+  },
+  "engines": {
+    "node": "^8.6.0",
+    "npm": "^5.3.0"
+  }
+}
