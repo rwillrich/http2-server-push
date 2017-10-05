@@ -6,15 +6,18 @@
   "scripts": {
     "start": "node --expose-http2 ./src/http-2",
     "watch": "nodemon",
-    "start-http": "node ./src/http",
-    "generate-dependencies": "madge --json ./public > ./src/dependencies.json"
+    "generate-dependencies": "madge --json ./public > ./src/dependencies.json",
+    "start-express": "node ./src/http-2-express",
+    "start-http": "node ./src/http"
   },
   "engines": {
     "node": "^8.6.0",
     "npm": "^5.3.0"
   },
   "dependencies": {
-    "mime": "^2.0.3"
+    "express": "^4.16.1",
+    "mime": "^2.0.3",
+    "spdy": "^3.4.7"
   },
   "devDependencies": {
     "madge": "^2.2.0",
