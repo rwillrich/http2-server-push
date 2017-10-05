@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node --expose-http2 ./src/http-2"
+    "start": "node --expose-http2 ./src/http-2",
+    "start-http": "node ./src/http"
   },
   "engines": {
     "node": "^8.6.0",
