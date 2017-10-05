@@ -5,6 +5,7 @@ html, body, .app-container {
   font-family: 'Merriweather Sans',sans-serif;
 }
 
+/* http://www.color-hex.com/color-palette/47571 */
 .component {
   display: inline-block;
   width: 22vw;

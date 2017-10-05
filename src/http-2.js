@@ -27,12 +27,12 @@ function push (stream, path) {
   })
 }
 
-function pushDependencies(stream, reqPath) {
-  const dependencies = dependenciesConfig[reqPath] || []
+function pushDependencies(stream, reqPath = '') {
+  const dependencies = dependenciesConfig[reqPath.slice(1)] || []
 
   dependencies.forEach(dependency => {
-    push(stream, dependency)
-    pushDependencies(stream, dependency)
+    push(stream, `/${dependency}`)
+    pushDependencies(stream, `/${dependency}`)
   })
 }
 
