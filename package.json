@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node --expose-http2 ./src/http-2",
+    "watch": "nodemon npm start",
     "start-http": "node ./src/http"
   },
   "engines": {
@@ -13,5 +14,8 @@
   },
   "dependencies": {
     "mime": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
