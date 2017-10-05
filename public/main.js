@@ -1,5 +1,5 @@
-import greetingA from './a.js'
-import greetingB from './b.js'
+import componentA from './a.js'
+import componentB from './b.js'
 
-console.log(greetingA())
-console.log(greetingB())
+componentA()
+componentB()
