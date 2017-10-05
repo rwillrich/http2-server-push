@@ -1,26 +1,32 @@
 const fs = require('fs')
 const http = require('http')
 const path = require('path')
+const url = require('url')
 
-const indexPath = path.resolve(__dirname, '../public/index.html')
+const getFiles = require('./get-files')
+const dependenciesConfig = require('./dependencies.json')
+
+const publicDir = path.resolve(__dirname, '../public/')
+const publicFiles = getFiles(publicDir)
 
 const handler = (req, res) => {
-  fs.readFile(indexPath, function(err, data) {
-    if (!data) {
-      res.writeHead(500)
-    } else {
-      res.setHeader('Content-Type', 'text/html')
-      res.writeHead(200, { 'Content-Type': 'text/html', 'Content-Length': data.length })
-      res.write(data)
-    }
+  const location = url.parse(req.url)
+  const reqPath = location.path === '/' ? '/index.html' : location.path
+  const file = publicFiles.get(reqPath)
 
+  if (!file) {
+    res.statusCode = 404
     res.end()
-  })
+    return
+  }
+
+  res.writeHead(200, file.headers)
+  fs.createReadStream(path.join(publicDir, reqPath)).pipe(res)
 }
 
 const server = http.createServer(handler)
 
 server.listen(3000, () => {
-  const { address, port } = server
+  const { address, port } = server.address()
   console.log(`Server listening at ${address}:${port}`)
 })
